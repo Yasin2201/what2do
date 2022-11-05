@@ -2,7 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const morgan = require('morgan');
 const cors = require("cors");
 
 const { PrismaClient } = require('@prisma/client')
@@ -10,7 +10,7 @@ const prisma = new PrismaClient()
 
 const app = express();
 
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
