@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const cors = require("cors");
+const { port } = require("./src/config");
 
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
@@ -60,4 +61,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+app.listen(port, () => {
+  console.log(`Server started on port: ${port}`);
+});
