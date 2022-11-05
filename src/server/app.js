@@ -3,13 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -17,8 +19,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/test', (req, res) => {
-  res.send("Hello")
+app.get('/user/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const result = await prisma.user.findUnique({
+      where: {
+        id: id
+      }
+    })
+    res.json(result)
+  } catch (err) {
+    console.error("error executing query:", err);
+  } 
+})
+
+app.post('/signup', async (req, res) => {
+  try {
+    const result = await prisma.user.create({
+      data: {
+        username: req.body.username
+      },
+    })
+    res.json(result)
+  } catch (err) {
+    console.error("error executing query:", err);
+  } 
 })
 
 // catch 404 and forward to error handler
