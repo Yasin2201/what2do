@@ -20,3 +20,8 @@ model Group {
   name     String
   joinCode Int    @default(autoincrement())
 }
+
+model Activity {
+  id      String @id @default(uuid())
+  placeid Int
+}
