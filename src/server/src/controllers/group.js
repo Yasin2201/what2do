@@ -69,6 +69,49 @@ exports.update = async (req, res, next) => {
   }
 };
 
+exports.joinGroup = async (req, res, next) => {
+  const { id } = req.params
+  const { groupId } = req.body
+
+  if (!groupId) {
+    return res
+      .status(422)
+      .json({ error: "Join Code must be provided" });
+  }
+
+  const existingUserGroup = await db.userGroup.findFirst({
+    where: {
+      userId: id,
+      groupId
+    },
+  });
+
+  if (existingUserGroup) {
+    return res.status(422).json({ error: "User is already in this group..." });
+  }
+
+  try {
+    const userGroup = await db.userGroup.create({
+      data: {
+        user: {
+          connect: {
+            id
+          }
+        },
+        group: {
+          connect: {
+            id: groupId
+          }
+        }
+      }
+    })
+  
+    return res.json({userGroup});
+  } catch (error) {
+    res.status(404).json({error})
+  }
+};
+
 exports.getAll = async (req, res, next) => {
 
 };
