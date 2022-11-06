@@ -11,17 +11,27 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  username String @unique
+  id       String      @id @default(uuid())
+  username String      @unique
+  groups   UserGroup[]
 }
 
 model Group {
-  id       String @id @default(uuid())
+  id       String      @id @default(uuid())
   name     String
-  joinCode Int    @default(autoincrement())
+  joinCode Int         @default(autoincrement())
+  users    UserGroup[]
 }
 
 model Activity {
   id      String @id @default(uuid())
   placeid Int
+}
+
+model UserGroup {
+  id      String @id @default(uuid())
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
+  group   Group  @relation(fields: [groupId], references: [id])
+  groupId String
 }
