@@ -34,7 +34,28 @@ exports.delete = async (req, res, next) => {
 };
 
 exports.update = async (req, res, next) => {
+  const { id } = req.params
+  const { name } = req.body
 
+  if (!name) {
+    return res
+      .status(422)
+      .json({ error: "Name must be provided" });
+  }
+
+  try {
+    const updatedGroup = await db.group.update({
+      where: {
+        id
+      },
+      data: {
+        name
+      },
+    })
+    return res.json({updatedGroup});
+  } catch (error) {
+    res.status(404).json({error})
+  }
 };
 
 exports.getAll = async (req, res, next) => {
