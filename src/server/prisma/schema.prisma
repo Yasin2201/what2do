@@ -14,3 +14,9 @@ model User {
   id       String @id @default(uuid())
   username String @unique
 }
+
+model Group {
+  id       String @id @default(uuid())
+  name     String
+  joinCode Int    @default(autoincrement())
+}
