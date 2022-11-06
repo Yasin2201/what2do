@@ -113,6 +113,29 @@ exports.joinGroup = async (req, res, next) => {
 };
 
 exports.getAll = async (req, res, next) => {
+  const { id } = req.body //temporary id will be from payload on completion
+
+  try {
+    const allGroups = await db.userGroup.findMany({
+      where: {
+        user: {
+          id
+        }
+      },
+      include: {
+        user: true
+      }
+    });
+
+    if (allGroups.length === 0) {
+      res.json({message: "You have no groups"})
+    } else {
+      res.json({allGroups})
+    }
+  
+  } catch (error) {
+    res.status(404).json({error})
+  }
 
 };
 
