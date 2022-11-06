@@ -5,9 +5,7 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const cors = require("cors");
 const { port } = require("./src/config");
-
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+const indexRouter = require("./src/router");
 
 const app = express();
 
@@ -18,32 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/user/:id', async (req, res) => {
-  const { id } = req.params
-  try {
-    const result = await prisma.user.findUnique({
-      where: {
-        id: id
-      }
-    })
-    res.json(result)
-  } catch (err) {
-    console.error("error executing query:", err);
-  } 
-})
-
-app.post('/signup', async (req, res) => {
-  try {
-    const result = await prisma.user.create({
-      data: {
-        username: req.body.username
-      },
-    })
-    res.json(result)
-  } catch (err) {
-    console.error("error executing query:", err);
-  } 
-})
+app.use("/api", indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -58,7 +31,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json('error');
 });
 
 app.listen(port, () => {
