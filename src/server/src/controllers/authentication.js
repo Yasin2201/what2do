@@ -17,7 +17,7 @@ exports.signup = async (req, res, next) => {
   });
 
   if (existingUser) {
-    return res.status(422).json({ error: "Username is aleready in use..." });
+    return res.status(422).json({ error: "Username is already in use..." });
   }
 
   const user = await db.user.create({
