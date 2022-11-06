@@ -140,9 +140,28 @@ exports.getAll = async (req, res, next) => {
   } catch (error) {
     res.status(404).json({error})
   }
-
 };
 
 exports.getOne = async (req, res, next) => {
+  const { id } = req.params
+  const { userid } = req.body //temporary id will be from payload on completion
 
+  try {
+    const group = await db.userGroup.findFirst({
+      where: {
+        groupId: id,
+        userId: userid
+      },
+
+    });
+
+    if (!group) {
+      res.status(400).json({message: "Incorrect user id"})
+    } else {
+      res.json({group})
+    }
+  
+  } catch (error) {
+    res.status(404).json({error})
+  }
 };
