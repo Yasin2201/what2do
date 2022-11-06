@@ -9,24 +9,28 @@ exports.create = async (req, res, next) => {
       .json({ error: "Name and UserID must be provided" });
   }
 
-  const group = await db.group.create({
-    data: {
-      name,
-      users: {
-        create: [
-          {
-            user: {
-              connect: {
-                id: userid
+  try {
+    const group = await db.group.create({
+      data: {
+        name,
+        users: {
+          create: [
+            {
+              user: {
+                connect: {
+                  id: userid
+                }
               }
             }
-          }
-        ]
-      }
-    },
-  });
-
-  return res.json({group});
+          ]
+        }
+      },
+    });
+  
+    return res.json({group});
+  } catch (error) {
+    res.status(404).json({error})
+  }
 };
 
 exports.delete = async (req, res, next) => {
