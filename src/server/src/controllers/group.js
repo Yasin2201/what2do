@@ -1,17 +1,28 @@
 const db = require("../db");
 
 exports.create = async (req, res, next) => {
-  const { name } = req.body
+  const { name, userid } = req.body
 
-  if (!name) {
+  if (!name || !userid) {
     return res
       .status(422)
-      .json({ error: "Name must be provided" });
+      .json({ error: "Name and UserID must be provided" });
   }
 
   const group = await db.group.create({
     data: {
       name,
+      users: {
+        create: [
+          {
+            user: {
+              connect: {
+                id: userid
+              }
+            }
+          }
+        ]
+      }
     },
   });
 
