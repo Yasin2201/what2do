@@ -44,4 +44,11 @@ model ActivityGroup {
   activityId String
   group      Group    @relation(fields: [groupId], references: [id])
   groupId    String
+  status     Status   @default(VOTING)
+}
+
+enum Status {
+  VOTING
+  ACTIVE
+  COMPLETED
 }
