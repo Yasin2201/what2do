@@ -1,21 +1,13 @@
 const db = require("../db");
 
 exports.create = async (req, res, next) => {
-  const { placeid } = req.body
+  try {
+    const activity = await db.activity.create();
+    return res.json({activity});
 
-  if (!placeid) {
-    return res
-      .status(422)
-      .json({ error: "Place must be selected" });
+  } catch (error) {
+    return res.status(500).json({error});
   }
-
-  const activity = await db.activity.create({
-    data: {
-      placeid
-    },
-  });
-
-  return res.json({activity});
 };
 
 exports.delete = async (req, res, next) => {
