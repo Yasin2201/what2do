@@ -17,17 +17,17 @@ model User {
 }
 
 model Group {
-  id            String          @id @default(uuid())
-  name          String
-  joinCode      Int             @default(autoincrement())
-  users         UserGroup[]
-  ActivityGroup ActivityGroup[]
+  id       String          @id @default(uuid())
+  name     String
+  joinCode Int             @default(autoincrement())
+  users    UserGroup[]
+  activity ActivityGroup[]
 }
 
 model Activity {
-  id            String          @id @default(uuid())
-  placeid       Int
-  ActivityGroup ActivityGroup[]
+  id      String          @id @default(uuid())
+  placeid Int
+  group   ActivityGroup[]
 }
 
 model UserGroup {
