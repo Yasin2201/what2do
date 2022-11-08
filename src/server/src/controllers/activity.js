@@ -25,6 +25,7 @@ exports.delete = async (req, res, next) => {
   }
 };
 
+// this may not be applicable leave for now
 exports.update = async (req, res, next) => {
   const { id } = req.params
   const { placeid } = req.body
@@ -51,7 +52,28 @@ exports.update = async (req, res, next) => {
 };
 
 exports.getAll = async (req, res, next) => {
+  const { id } = req.body //temporary id will be from payload on completion
 
+  try {
+    const allActivities = await db.$queryRaw`
+      SELECT "Activity".id, "Activity"."placeid", "Group"."name", "User"."username" FROM "Activity"
+        LEFT JOIN "Group"
+          ON "Group".id = "Activity"."groupId"
+        LEFT JOIN "UserGroup"
+          ON "UserGroup"."groupId" = "Group".id
+        LEFT JOIN "User"
+          ON "User".id = "UserGroup"."userId"
+          WHERE "User".id = ${id};`
+
+    if (allActivities.length === 0) {
+      res.status(200).json({message: "You have no activities planned."})
+    } else {
+      res.json({allActivities})
+    }
+  
+  } catch (error) {
+    res.status(404).json({error})
+  }
 };
 
 exports.getOne = async (req, res, next) => {
