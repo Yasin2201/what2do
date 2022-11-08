@@ -17,17 +17,18 @@ model User {
 }
 
 model Group {
-  id       String          @id @default(uuid())
-  name     String
-  joinCode Int             @default(autoincrement())
-  users    UserGroup[]
-  activity ActivityGroup[]
+  id        String      @id @default(uuid())
+  name      String
+  joinCode  Int         @default(autoincrement())
+  users     UserGroup[]
+  activitys Activity[]
 }
 
 model Activity {
-  id      String          @id @default(uuid())
-  placeid Int
-  group   ActivityGroup[]
+  id      String @id @default(uuid())
+  placeid Int?
+  group   Group  @relation(fields: [groupId], references: [id])
+  groupId String
 }
 
 model UserGroup {
@@ -36,15 +37,6 @@ model UserGroup {
   userId  String
   group   Group  @relation(fields: [groupId], references: [id])
   groupId String
-}
-
-model ActivityGroup {
-  id         String   @id @default(uuid())
-  activity   Activity @relation(fields: [activityId], references: [id])
-  activityId String
-  group      Group    @relation(fields: [groupId], references: [id])
-  groupId    String
-  status     Status   @default(VOTING)
 }
 
 enum Status {
