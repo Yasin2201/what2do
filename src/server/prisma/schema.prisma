@@ -29,6 +29,7 @@ model Activity {
   placeid Int?
   group   Group  @relation(fields: [groupId], references: [id])
   groupId String
+  status  Status @default(VOTING)
 }
 
 model UserGroup {
