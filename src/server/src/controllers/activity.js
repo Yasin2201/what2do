@@ -1,8 +1,14 @@
 const db = require("../db");
 
 exports.create = async (req, res, next) => {
+  const { groupid } = req.body
+
   try {
-    const activity = await db.activity.create();
+    const activity = await db.activity.create({
+      data: {
+        groupId: groupid
+      }
+    });
     return res.json({activity});
 
   } catch (error) {
