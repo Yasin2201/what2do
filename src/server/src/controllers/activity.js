@@ -1,4 +1,5 @@
 const db = require("../db");
+const { findMode } = require('../utils/activityStatus')
 
 exports.create = async (req, res, next) => {
   const { groupid } = req.body
@@ -34,24 +35,43 @@ exports.delete = async (req, res, next) => {
 // this may not be applicable leave for now
 exports.update = async (req, res, next) => {
   const { id } = req.params
-  const { placeid } = req.body
-
-  if (!placeid) {
-    return res
-      .status(422)
-      .json({ error: "Place must be selected"  });
-  }
 
   try {
-    const updatedActivity = await db.activity.update({
+    const currActivity = await db.activity.findFirst({
       where: {
         id
       },
-      data: {
-        placeid
-      },
+      include: {
+        votes: true,
+        group: {
+          include: {
+            users: true
+          }
+        }
+      }
     })
-    return res.json({updatedActivity});
+
+    if (currActivity.status === "VOTING" && currActivity.votes.length === currActivity.group.users.length) {
+      let mostVotedPlace;
+      const votePlaceIds = currActivity.votes.map((vote) => vote.placeid)
+      mostVotedPlace = findMode(votePlaceIds);
+
+      if (mostVotedPlace.length > 1) {
+        mostVotedPlace = [mostVotedPlace[Math.floor(Math.random() * mostVotedPlace.length)]]
+      }
+
+        const updateActivity = await db.activity.update({
+          where: {
+            id
+          },
+          data: {
+            status: "ACTIVE",
+            placeid: mostVotedPlace[0]
+          }
+        })
+        return res.status(200).json({updateActivity});
+    }
+    return res.json({currActivity});
   } catch (error) {
     res.status(404).json({error})
   }
