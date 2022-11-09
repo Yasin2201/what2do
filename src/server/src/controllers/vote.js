@@ -11,6 +11,35 @@ exports.create = async (req, res, next) => {
   }
 
   try {
+    const activityGroupIds = await db.activity.findFirst({
+      where: {
+        id,
+      },
+      select: {
+          group: {
+            select: {
+              users: {
+                select: {
+                  user: {
+                    select: {
+                      id: true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+    })
+
+    const validUser = activityGroupIds.group.users.some((groupUsers) => {
+      return groupUsers.user.id === userid
+    })
+
+    if (!validUser) {
+      return res.status(401).json({ error: "Unauthorized to vote for this activity" });
+    }
+
     const existingVote = await db.vote.findFirst({
       where: {
         activityId: id,
