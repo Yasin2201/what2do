@@ -32,9 +32,9 @@ exports.delete = async (req, res, next) => {
   }
 };
 
-// this may not be applicable leave for now
 exports.update = async (req, res, next) => {
   const { id } = req.params
+  const { completed } = req.body
 
   try {
     const currActivity = await db.activity.findFirst({
@@ -57,20 +57,32 @@ exports.update = async (req, res, next) => {
       mostVotedPlace = findMode(votePlaceIds);
 
       if (mostVotedPlace.length > 1) {
+        //randomly choose a place if many places have same amount of votes
         mostVotedPlace = [mostVotedPlace[Math.floor(Math.random() * mostVotedPlace.length)]]
       }
 
-        const updateActivity = await db.activity.update({
-          where: {
-            id
-          },
-          data: {
-            status: "ACTIVE",
-            placeid: mostVotedPlace[0]
-          }
-        })
-        return res.status(200).json({updateActivity});
+      const updateActivity = await db.activity.update({
+        where: {
+          id
+        },
+        data: {
+          status: "ACTIVE",
+          placeid: mostVotedPlace[0]
+        }
+      })
+      return res.status(200).json({updateActivity});
+    } else if (currActivity.status === "ACTIVE" && completed) {
+      const updateActivity = await db.activity.update({
+        where: {
+          id
+        },
+        data: {
+          status: "COMPLETED"
+        }
+      })
+      return res.status(200).json({updateActivity});
     }
+
     return res.json({currActivity});
   } catch (error) {
     res.status(404).json({error})
