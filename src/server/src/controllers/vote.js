@@ -11,6 +11,17 @@ exports.create = async (req, res, next) => {
   }
 
   try {
+    const existingVote = await db.vote.findFirst({
+      where: {
+        activityId: id,
+        userId: userid
+      }
+    })
+
+    if (existingVote) {
+      return res.status(422).json({ error: "You have already voted" });
+    }
+
     const vote = await db.vote.create({
       data: {
         placeid,
