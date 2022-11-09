@@ -48,6 +48,7 @@ model Vote {
   userId     String
   activity   Activity @relation(fields: [activityId], references: [id])
   activityId String
+  placeid    Int
 }
 
 enum Status {
