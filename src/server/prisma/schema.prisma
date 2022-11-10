@@ -39,7 +39,7 @@ model UserGroup {
   id      String  @id @default(uuid())
   user    User    @relation(fields: [userId], references: [id])
   userId  String
-  group   Group   @relation(fields: [groupId], references: [id])
+  group   Group   @relation(fields: [groupId], references: [id], onDelete: Cascade)
   groupId String
   admin   Boolean @default(false)
 }
