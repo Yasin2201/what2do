@@ -1,4 +1,11 @@
+const jwt = require("jsonwebtoken");
+const { secret } = require("../config");
 const db = require("../db");
+
+function tokenForUser(user) {
+  const timestamp = new Date().getTime();
+  return jwt.sign({ sub: user.id, iat: timestamp }, secret);
+}
 
 exports.signup = async (req, res, next) => {
   const username = req.body.username;
