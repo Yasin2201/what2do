@@ -37,8 +37,28 @@ exports.create = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   const { id } = req.params
+  const userId = req.user.id
 
   try {
+    const isUserGroupAdmin = await db.userGroup.findFirst({
+      where: {
+        userId,
+        groupId: id,
+      }
+    })
+
+    if (!isUserGroupAdmin) {
+      return res
+          .status(404)
+          .json({ message: "Group not found" });
+    }
+
+    if (!isUserGroupAdmin.admin) {
+      return res
+          .status(401)
+          .json({ message: "Only admins can delete this group" });
+    }
+
     const deletedGroup = await db.group.delete({
       where: {
         id
