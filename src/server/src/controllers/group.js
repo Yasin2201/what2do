@@ -1,13 +1,13 @@
 const db = require("../db");
 
 exports.create = async (req, res, next) => {
-  const { name, userid } = req.body
+  const { name } = req.body
   const { id } = req.user
 
-  if (!name || !userid) {
+  if (!name || !id) {
     return res
       .status(422)
-      .json({ error: "Name and UserID must be provided" });
+      .json({ error: "Group Name must be provided" });
   }
 
   try {
@@ -17,6 +17,7 @@ exports.create = async (req, res, next) => {
         users: {
           create: [
             {
+              admin: true,
               user: {
                 connect: {
                   id
