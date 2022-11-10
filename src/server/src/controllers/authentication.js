@@ -34,5 +34,5 @@ exports.signup = async (req, res, next) => {
     },
   });
 
-  return res.json({user});
+  return res.json({token: tokenForUser(user)});
 };
