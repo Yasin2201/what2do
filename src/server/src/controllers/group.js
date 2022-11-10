@@ -2,6 +2,7 @@ const db = require("../db");
 
 exports.create = async (req, res, next) => {
   const { name, userid } = req.body
+  const { id } = req.user
 
   if (!name || !userid) {
     return res
@@ -18,7 +19,7 @@ exports.create = async (req, res, next) => {
             {
               user: {
                 connect: {
-                  id: userid
+                  id
                 }
               }
             }
@@ -48,6 +49,7 @@ exports.delete = async (req, res, next) => {
   }
 };
 
+//edit group name improve funvtionality later
 exports.update = async (req, res, next) => {
   const { id } = req.params
   const { name } = req.body
@@ -74,7 +76,7 @@ exports.update = async (req, res, next) => {
 };
 
 exports.joinGroup = async (req, res, next) => {
-  const { id } = req.params
+  const { id } = req.user
   const { groupId } = req.body
 
   if (!groupId) {
@@ -117,7 +119,7 @@ exports.joinGroup = async (req, res, next) => {
 };
 
 exports.getAll = async (req, res, next) => {
-  const { id } = req.body //temporary id will be from payload on completion
+  const { id } = req.user
 
   try {
     const allGroups = await db.userGroup.findMany({
@@ -127,7 +129,7 @@ exports.getAll = async (req, res, next) => {
         }
       },
       include: {
-        user: true
+        group: true
       }
     });
 
@@ -144,7 +146,7 @@ exports.getAll = async (req, res, next) => {
 
 exports.getOne = async (req, res, next) => {
   const { id } = req.params
-  const { userid } = req.body //temporary id will be from payload on completion
+  const userid = req.user.id
 
   try {
     const group = await db.userGroup.findFirst({
@@ -156,7 +158,7 @@ exports.getOne = async (req, res, next) => {
     });
 
     if (!group) {
-      res.status(400).json({message: "Incorrect user id"})
+      res.status(403).json({message: "You don't have access to this group!"})
     } else {
       res.json({group})
     }
