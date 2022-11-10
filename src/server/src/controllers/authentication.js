@@ -2,12 +2,12 @@ const db = require("../db");
 
 exports.signup = async (req, res, next) => {
   const username = req.body.username;
-  //const password = req.body.password;
+  const password = req.body.password;
 
-  if (!username) { // (!username || !password)
+  if (!username || !password) {
     return res
       .status(422)
-      .json({ error: "Username must be provided" }); //"Username and password must be provided"
+      .json({ error: "Username and password must be provided" });
   }
 
   const existingUser = await db.user.findFirst({
@@ -23,6 +23,7 @@ exports.signup = async (req, res, next) => {
   const user = await db.user.create({
     data: {
       username,
+      password
     },
   });
 
