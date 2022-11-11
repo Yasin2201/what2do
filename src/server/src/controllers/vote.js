@@ -2,7 +2,8 @@ const db = require("../db");
 
 exports.create = async (req, res, next) => {
   const { id } = req.params
-  const { placeid, userid } = req.body
+  const { placeid } = req.body
+  const userid = req.user.id
 
   if (!placeid || !userid) {
     return res
@@ -61,6 +62,6 @@ exports.create = async (req, res, next) => {
   
     return res.json({vote});
   } catch (error) {
-    res.status(404).json({error})
+    res.status(500).json({error})
   }
 }
