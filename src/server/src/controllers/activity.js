@@ -2,12 +2,15 @@ const db = require("../db");
 const { findMode } = require('../utils/activityStatus')
 
 exports.create = async (req, res, next) => {
-  const { groupid } = req.body
+  const { id } = req.user
+  const { name, groupId } = req.body
 
   try {
     const activity = await db.activity.create({
       data: {
-        groupId: groupid
+        name,
+        groupId,
+        createdByUser: id
       }
     });
     return res.json({activity});
@@ -19,22 +22,36 @@ exports.create = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   const { id } = req.params
+  const userId = req.user.id
 
   try {
-    const deletedActivity = await db.activity.delete({
+    const foundActivity = await db.activity.findFirst({where: { id }});
+
+    if (!foundActivity) {
+     return res.status(404).json({error: "Activity not found"})
+    }
+
+    if (foundActivity.createdByUser !== userId) {
+     return res.status(401).json({error: "You can only delete Activities you created"})
+    }
+
+    const deletedActivity = await db.activity.deleteMany({
       where: {
-        id
-      },
+        id,
+        createdByUser: userId
+      }
     })
-    return res.json({deletedActivity});
+
+    return res.json({deletedActivity: {...deletedActivity, foundActivity}});
   } catch (error) {
-    res.status(404).json({error})
+    res.status(500).json({error})
   }
 };
 
 exports.update = async (req, res, next) => {
   const { id } = req.params
   const { completed } = req.body
+  const userId = req.user.id
 
   try {
     const currActivity = await db.activity.findFirst({
@@ -50,6 +67,12 @@ exports.update = async (req, res, next) => {
         }
       }
     })
+
+    const activityUserIds = currActivity.group.users.map((user) => user.userId)
+
+    if (activityUserIds.includes(userId)) {
+      return res.status(401).json({error: "You can only update Activities you're part of"})
+    }
 
     if (currActivity.status === "VOTING" && currActivity.votes.length === currActivity.group.users.length) {
       let mostVotedPlace;
@@ -85,12 +108,12 @@ exports.update = async (req, res, next) => {
 
     return res.json({currActivity});
   } catch (error) {
-    res.status(404).json({error})
+    res.status(500).json({error})
   }
 };
 
 exports.getAll = async (req, res, next) => {
-  const { id } = req.body //temporary id will be from payload on completion
+  const { id } = req.user
 
   try {
     const allActivities = await db.$queryRaw`
@@ -104,19 +127,19 @@ exports.getAll = async (req, res, next) => {
           WHERE "User".id = ${id};`
 
     if (allActivities.length === 0) {
-      res.status(200).json({message: "You have no activities planned."})
+      res.status(404).json({message: "You have no activities planned."})
     } else {
       res.json({allActivities})
     }
   
   } catch (error) {
-    res.status(404).json({error})
+    res.status(500).json({error})
   }
 };
 
 exports.getOne = async (req, res, next) => {
   const { id } = req.params
-  const { userid } = req.body //temporary id will be from payload on completion
+  const userid = req.user.id
 
   try {
     const activity = await db.$queryRaw`
@@ -136,6 +159,6 @@ exports.getOne = async (req, res, next) => {
     }
   
   } catch (error) {
-    res.status(404).json({error})
+    res.status(500).json({error})
   }
 };
