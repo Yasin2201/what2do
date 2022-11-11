@@ -44,7 +44,7 @@ exports.delete = async (req, res, next) => {
 
     return res.json({deletedActivity: {...deletedActivity, foundActivity}});
   } catch (error) {
-    res.status(500).json({error})
+    return res.status(500).json({error})
   }
 };
 
@@ -108,7 +108,7 @@ exports.update = async (req, res, next) => {
 
     return res.json({currActivity});
   } catch (error) {
-    res.status(500).json({error})
+    return res.status(500).json({error})
   }
 };
 
@@ -127,13 +127,13 @@ exports.getAll = async (req, res, next) => {
           WHERE "User".id = ${id};`
 
     if (allActivities.length === 0) {
-      res.status(404).json({message: "You have no activities planned."})
+      res.status(404).json({error: "You have no activities planned."})
     } else {
       res.json({allActivities})
     }
   
   } catch (error) {
-    res.status(500).json({error})
+    return res.status(500).json({error})
   }
 };
 
@@ -153,12 +153,12 @@ exports.getOne = async (req, res, next) => {
           WHERE "User".id = ${userid} AND "Activity"."id" = ${id};`
 
     if (activity.length === 0) {
-      res.status(404).json({message: "Activity doesn't exist."})
+      res.status(404).json({error: "Activity doesn't exist."})
     } else {
       res.json({activity})
     }
   
   } catch (error) {
-    res.status(500).json({error})
+    return res.status(500).json({error})
   }
 };

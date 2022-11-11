@@ -62,6 +62,6 @@ exports.create = async (req, res, next) => {
   
     return res.json({vote});
   } catch (error) {
-    res.status(500).json({error})
+    return res.status(500).json({error})
   }
 }

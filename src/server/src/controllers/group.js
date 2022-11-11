@@ -31,7 +31,7 @@ exports.create = async (req, res, next) => {
   
     return res.json({group});
   } catch (error) {
-    res.status(404).json({error})
+    return res.status(500).json({error})
   }
 };
 
@@ -50,13 +50,13 @@ exports.delete = async (req, res, next) => {
     if (!isUserGroupAdmin) {
       return res
           .status(404)
-          .json({ message: "Group not found" });
+          .json({ error: "Group not found" });
     }
 
     if (!isUserGroupAdmin.admin) {
       return res
           .status(401)
-          .json({ message: "Only admins can delete this group" });
+          .json({ error: "Only admins can delete this group" });
     }
 
     const deletedGroup = await db.group.delete({
@@ -66,7 +66,7 @@ exports.delete = async (req, res, next) => {
     })
     return res.json({deletedGroup});
   } catch (error) {
-    res.status(404).json({error})
+    return res.status(500).json({error})
   }
 };
 
@@ -92,7 +92,7 @@ exports.update = async (req, res, next) => {
     })
     return res.json({updatedGroup});
   } catch (error) {
-    res.status(404).json({error})
+    return res.status(500).json({error})
   }
 };
 
@@ -135,7 +135,7 @@ exports.joinGroup = async (req, res, next) => {
   
     return res.json({userGroup});
   } catch (error) {
-    res.status(404).json({error})
+    return res.status(500).json({error})
   }
 };
 
@@ -155,13 +155,13 @@ exports.getAll = async (req, res, next) => {
     });
 
     if (allGroups.length === 0) {
-      res.json({message: "You have no groups"})
+      return res.status(404).json({error: "You have no groups"})
     } else {
-      res.json({allGroups})
+      return res.json({allGroups})
     }
   
   } catch (error) {
-    res.status(404).json({error})
+    return res.status(500).json({error})
   }
 };
 
@@ -179,12 +179,11 @@ exports.getOne = async (req, res, next) => {
     });
 
     if (!group) {
-      res.status(403).json({message: "You don't have access to this group!"})
-    } else {
-      res.json({group})
+      return res.status(404).json({error: "Group not found"})
     }
-  
+
+    return res.json({group})
   } catch (error) {
-    res.status(404).json({error})
+    return res.status(500).json({error})
   }
 };

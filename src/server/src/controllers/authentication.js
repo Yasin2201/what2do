@@ -8,7 +8,7 @@ function tokenForUser(user) {
 }
 
 exports.login = function (req, res) {
-  res.send({ token: tokenForUser(req.user) });
+  return res.send({ token: tokenForUser(req.user) });
 };
 
 exports.signup = async (req, res, next) => {
