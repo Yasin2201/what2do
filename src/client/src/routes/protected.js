@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Profile from '../features/users/routes/Profile';
-import Dashboard from '../features/misc/routes/Dashboard';
+import { Profile } from '../features/users/routes/Profile';
+import { Dashboard } from '../features/misc/routes/Dashboard';
 
 function ProtectedRoutes() {
   return (
