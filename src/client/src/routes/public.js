@@ -1,10 +1,11 @@
 import { Login } from "@/features/auth/routes/Login";
-// import Register from "../features/auth/routes/Register";
+import { Register } from "@/features/auth/routes/Register";
 
 function PublicRoutes() {
   return (
     <div>
       <Login />
+      <Register />
     </div>
   )
 }
