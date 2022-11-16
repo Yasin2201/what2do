@@ -1,20 +1,20 @@
-import { useAuth } from '@/lib/auth';
+// import { useAuth } from '@/lib/auth';
 import ProtectedRoutes from './protected';
+import { useAuthContext } from '@/hooks/useAuthContext';
 import PublicRoutes from './public';
 
 export const AppRoutes = () => {
-  const auth = useAuth()
-  console.log(auth)
+  const { user, isLoading } = useAuthContext()
 
-  if (auth.isLoading) {
+  if (isLoading) {
     return (
       <div>
         Loading....
       </div>
     )
   }
-  
+
   return (
-    auth.user ? <ProtectedRoutes /> : <PublicRoutes />
+    user ? <ProtectedRoutes /> : <PublicRoutes />
   )
 };
