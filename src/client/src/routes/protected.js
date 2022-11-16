@@ -1,24 +1,15 @@
-import { Navigate, Outlet } from 'react-router-dom';
-import { Profile } from '@/features/users';
-import { Dashboard } from '@/features/misc';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import Profile from '../features/users/routes/Profile';
+import Dashboard from '../features/misc/routes/Dashboard';
 
-const App = () => {
+function ProtectedRoutes() {
   return (
-    <div>
-      <h1>Protected Routes View</h1>
-      <Outlet />
-    </div>
-  );
-};
+    <Routes>
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/dash" element={<Dashboard />} />
+      <Route path="*" element={<Navigate to="/dash"/>} />
+    </Routes>
+  )
+}
 
-export const protectedRoutes = [
-  {
-    path: '/',
-    element: <App />,
-    children: [
-      { path: '/profile', element: <Profile /> },
-      { path: '/dash', element: <Dashboard /> },
-      { path: '*', element: <Navigate to="." /> },
-    ],
-  },
-];
+export default ProtectedRoutes

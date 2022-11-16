@@ -1,8 +1,12 @@
-import { AuthRoutes } from "@/features/auth";
+import { Login } from "@/features/auth/routes/Login";
+// import Register from "../features/auth/routes/Register";
 
-export const publicRoutes = [
-  {
-    path: '/auth/*',
-    element: <AuthRoutes />,
-  },
-];
+function PublicRoutes() {
+  return (
+    <div>
+      <Login />
+    </div>
+  )
+}
+
+export default PublicRoutes

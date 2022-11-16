@@ -1,17 +1,20 @@
-import { useRoutes } from 'react-router-dom';
-
-import { protectedRoutes } from './protected';
-import { publicRoutes } from './public';
 import { useAuth } from '@/lib/auth';
+import ProtectedRoutes from './protected';
+import PublicRoutes from './public';
 
 export const AppRoutes = () => {
   const auth = useAuth()
+  console.log(auth)
 
-  // const commonRoutes = [{ path: '/', element: <div>Landing</div> }];
+  if (auth.isLoading) {
+    return (
+      <div>
+        Loading....
+      </div>
+    )
+  }
   
-  const routes = auth.user ? protectedRoutes : publicRoutes;
-
-  const element = useRoutes([...routes]);
-
-  return <>{element}</>;
+  return (
+    auth.user ? <ProtectedRoutes /> : <PublicRoutes />
+  )
 };
