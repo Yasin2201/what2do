@@ -1,11 +1,11 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import storage from "@/utils/storage";
-import { getUser, loginWithEmailAndPassword } from "@/features/auth";
+import { loginWithEmailAndPassword } from "@/features/auth/api/login";
 
 const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [{ user, isLoggedIn, error }, setState] = useState({
     user: null,
     isLoggedIn: false,
@@ -14,16 +14,16 @@ const AuthProvider = ({ children }) => {
 
   async function handleUserResponse(resData) {
     const { data } = resData;
-    storage.setToken(data.token);
+    storage.setToken(data);
     const user = data.user
     return user;
   }
 
-  const loadUser = useCallback(async () => {
+  const loadUser = useCallback(() => {
     if (storage.getToken()) {
-      const data = await getUser();
+      const data = storage.getToken().user;
       setState({
-        user: data.data.user,
+        user: data,
         isLoggedIn: true,
         error: false
       })
