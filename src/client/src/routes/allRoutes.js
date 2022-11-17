@@ -3,23 +3,31 @@ import { Profile } from '../features/users/routes/Profile';
 import { Dashboard } from '../features/misc/routes/Dashboard';
 import { Login } from '@/features/auth/routes/Login';
 import { Register } from '@/features/auth/routes/Register';
+import { MainLayout } from '@/components/Layout/MainLayout';
 
 function AllRoutes({user}) {
   return (
     <Routes>
-      <Route path="/profile" element={
-          <>
-            {!user && <Navigate to="/login" />}
-            {user && <Profile />}
-          </>
-        } />
-      
-      <Route path="/dashboard" element={
-          <>
-            {!user && <Navigate to="/login" />}
-            {user && <Dashboard />}
-          </>
-        } />
+      <Route path="/" element={
+        <>
+          {!user && <Navigate to="/login" />}
+          {user && <MainLayout />}
+        </>
+      } >
+        <Route path="profile" element={
+            <>
+              {!user && <Navigate to="/login" />}
+              {user && <Profile />}
+            </>
+          } />
+        
+        <Route path="dashboard" element={
+            <>
+              {!user && <Navigate to="/login" />}
+              {user && <Dashboard />}
+            </>
+          } />
+      </Route>
 
       <Route path="/login" element={
           <>
