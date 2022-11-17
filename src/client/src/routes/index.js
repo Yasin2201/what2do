@@ -1,6 +1,5 @@
-import ProtectedRoutes from './protected';
+import AllRoutes from './allRoutes';
 import { useAuthContext } from '@/hooks/useAuthContext';
-import PublicRoutes from './public';
 
 export const AppRoutes = () => {
   const { user, isLoading } = useAuthContext()
@@ -14,6 +13,6 @@ export const AppRoutes = () => {
   }
 
   return (
-    user ? <ProtectedRoutes /> : <PublicRoutes />
+    <AllRoutes user={user}/>
   )
 };
