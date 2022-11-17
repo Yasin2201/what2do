@@ -18,13 +18,13 @@ const localLogin = new LocalStrategy(
     });
 
     if (!user) {
-      return done(null, false);
+      return done(null, false, { message: "invalid username or password" });
     }
 
     const isMatch = await comparePasswords(password, user.password);
 
     if (!isMatch) {
-      return done(null, false);
+      return done(null, false, { message: "invalid username or password" });
     }
 
     return done(null, user);
