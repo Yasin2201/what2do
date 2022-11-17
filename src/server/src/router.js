@@ -1,14 +1,16 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-var authRouter = require('./routes/authentication')
-var groupRouter = require('./routes/group')
+const authRouter = require('./routes/authentication')
+const groupRouter = require('./routes/group')
 const activityRouter = require('./routes/activity')
 const voteRouter = require("./routes/vote")
+const userRouter = require("./routes/user")
 
 router.use("/auth", authRouter);
 router.use(groupRouter);
 router.use(activityRouter);
 router.use(voteRouter);
+router.use(userRouter);
 
 module.exports = router;
