@@ -23,7 +23,7 @@ export const useLogin = () => {
 
     if (response.statusText === 'OK') {
       storage.setToken(response.data)
-      dispatch({type: "LOGIN", payload: response.data})
+      dispatch({type: "LOGIN", payload: response.data.user})
       setIsLoading(false)
     }
   }
