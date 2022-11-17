@@ -14,7 +14,7 @@ function AllRoutes({user}) {
           </>
         } />
       
-      <Route path="/dash" element={
+      <Route path="/dashboard" element={
           <>
             {!user && <Navigate to="/login" />}
             {user && <Dashboard />}
@@ -23,21 +23,21 @@ function AllRoutes({user}) {
 
       <Route path="/login" element={
           <>
-            {user && <Navigate to="/dash" />}
+            {user && <Navigate to="/dashboard" />}
             {!user && <Login />}
           </>
         } />
 
       <Route path="/register" element={
           <>
-            {user && <Navigate to="/dash" />}
+            {user && <Navigate to="/dashboard" />}
             {!user && <Register />}
           </>
         } />
       
       <Route path="*" element={
           <>
-            {user && <Navigate to="/dash" />}
+            {user && <Navigate to="/dashboard" />}
             {!user && <Navigate to="/login" />}
           </>
         } />
