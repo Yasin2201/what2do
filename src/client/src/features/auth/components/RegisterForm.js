@@ -1,14 +1,12 @@
 import { useRegister } from "@/hooks/useRegister"
-import { useState } from "react"
 
 export const RegisterForm = () => {
   const { register, error, isLoading } = useRegister()
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await register(username, password)
+    const {username, password} = e.target.elements
+    await register(username.value, password.value)
   }
 
   return (
@@ -31,8 +29,6 @@ export const RegisterForm = () => {
                 required
                 className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 placeholder="Username"
-                value={username}
-                onChange={(e) => {setUsername(e.target.value)}}
               />
             </div>
           </div>
@@ -49,8 +45,6 @@ export const RegisterForm = () => {
                 required
                 className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 placeholder="Password"
-                value={password}
-                onChange={(e) => {setPassword(e.target.value)}}
               />
             </div>
           </div>
