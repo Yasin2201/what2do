@@ -1,4 +1,3 @@
-// import { useAuth } from '@/lib/auth';
 import ProtectedRoutes from './protected';
 import { useAuthContext } from '@/hooks/useAuthContext';
 import PublicRoutes from './public';
