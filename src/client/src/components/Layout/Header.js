@@ -19,8 +19,8 @@ export const Header = () => {
               <FaUserCircle size={50} />
             </button>
         </div>
-        <div id="dropdown" className={`fixed w-44 right-10 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 ${isOpen ? "" : "hidden"}`}>
-          <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+        <div id="dropdown" className={`fixed w-44 right-10 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-800 ${isOpen ? "" : "hidden"}`}>
+          <ul className="py-1 text-sm text-gray-800 dark:text-gray-200" aria-labelledby="dropdownDefault">
             <li>
               <a href="/profile" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
             </li>
