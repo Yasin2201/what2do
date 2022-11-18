@@ -1,24 +1,36 @@
 import { useAuthContext } from "@/hooks/useAuthContext"
+import { useState } from "react"
+import { FaUserCircle } from "react-icons/fa"
 import { useLogout } from "@/hooks/useLogout"
 
 export const Header = () => {
+  const [isOpen, setIsOpen] = useState(false)
   const {user} = useAuthContext()
   const {logout} = useLogout()
   
   return (
-    <div className="mx-auto px-2 sm:px-6 lg:px-10 bg-gray-800">
-      <div className="relative flex h-16 items-center justify-between">
-        <div className="flex flex-1 items-center justify-end sm:items-stretch sm:justify-end">
-          <div className="flex items-center">
-            <div className="px-4">
-              <p className="text-white font-bold">{user.username}</p>
-            </div>
-            <div className="px-4">
-              <button onClick={logout} className="text-white font-bold py-1 px-2 rounded border-2 border-gray-100 hover:bg-gray-100 hover:text-gray-800">
-                Sign Out
-              </button>
-            </div>
-          </div>
+    <div className="flex items-center justify-end bg-white text-gray-800 w-full h-20 px-10 shadow-sm shadow-gray-200 ">
+      <p className=" font-bold px-3">
+        {user.username}
+      </p>
+      <div className="px-3">
+        <div>
+            <button onClick={() => {setIsOpen(!isOpen)}} >
+              <FaUserCircle size={50} />
+            </button>
+        </div>
+        <div id="dropdown" className={`fixed w-44 right-10 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 ${isOpen ? "" : "hidden"}`}>
+          <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+            <li>
+              <a href="/profile" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+            </li>
+            <li>
+              <a href="/dashboard" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+            </li>
+            <li>
+              <a href="/login" onClick={logout} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
