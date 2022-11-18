@@ -9,8 +9,8 @@ export const Header = () => {
   const {logout} = useLogout()
   
   return (
-    <div className="flex items-center justify-end bg-white text-gray-800 w-full h-20 px-10 shadow-sm shadow-gray-200 ">
-      <p className=" font-bold px-3">
+    <div className="flex items-center justify-end bg-white text-gray-800 w-full h-20 px-10 shadow-sm shadow-gray-200">
+      <p className="font-bold px-3">
         {user.username}
       </p>
       <div className="px-3">
