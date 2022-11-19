@@ -170,19 +170,21 @@ exports.getOne = async (req, res, next) => {
   const userid = req.user.id
 
   try {
-    const group = await db.userGroup.findFirst({
+    const usersGroup = await db.userGroup.findFirst({
       where: {
         groupId: id,
         userId: userid
       },
-
+      include: {
+        group: true
+      }
     });
 
-    if (!group) {
+    if (!usersGroup) {
       return res.status(404).json({error: "Group not found"})
     }
 
-    return res.json({group})
+    return res.json({usersGroup})
   } catch (error) {
     return res.status(500).json({error})
   }
