@@ -6,7 +6,7 @@ export const getActivity = ({activityId}) => {
 }
 
 export const useActivity = (activityId) => {
-  useQuery({
+  return useQuery({
     queryKey: ['activity', activityId],
     queryFn: () => getActivity(activityId)
   })
