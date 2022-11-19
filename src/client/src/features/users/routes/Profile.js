@@ -1,7 +1,8 @@
+import { ContentLayout } from "@/components/Layout/ContentLayout"
+
 export const Profile = () => {
   return (
-    <div>
-      <h1>Profile page</h1>
-    </div>
+    <ContentLayout title="Profile">
+    </ContentLayout>
   )
 }
