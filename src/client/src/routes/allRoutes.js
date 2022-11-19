@@ -7,6 +7,7 @@ import { MainLayout } from '@/components/Layout/MainLayout';
 import { Activitys } from '@/features/activitys/routes/Activitys';
 import { Groups } from '@/features/groups/routes/Groups';
 import { Group } from '@/features/groups/routes/Group';
+import { Activity } from '@/features/activitys/routes/Activity';
 
 function AllRoutes({user}) {
   return (
@@ -35,6 +36,13 @@ function AllRoutes({user}) {
             <>
               {!user && <Navigate to="/login" />}
               {user && <Activitys />}
+            </>
+          } />
+        
+        <Route path="activity/:id" element={
+            <>
+              {!user && <Navigate to="/login" />}
+              {user && <Activity />}
             </>
           } />
 
