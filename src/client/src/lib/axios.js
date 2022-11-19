@@ -3,9 +3,9 @@ import { API_URL } from '@/config';
 import storage from '@/utils/storage';
 
 function authRequestInterceptor(config) {
-  const token = storage.getToken();
-  if (token) {
-    config.headers.authorization = `${token}`;
+  const localStorage = storage.getToken();
+  if (localStorage.token) {
+    config.headers.authorization = `${localStorage.token}`;
   }
   config.headers.Accept = 'application/json';
   return config;
