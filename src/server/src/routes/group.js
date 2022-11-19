@@ -6,7 +6,7 @@ require("../services/passport");
 const requireAuth = passport.authenticate("jwt", { session: false });
 const Group = require("../controllers/group");
 
-router.get("/group", requireAuth, Group.getAll)
+router.get("/groups", requireAuth, Group.getAll)
 router.get("/group/:id", requireAuth, Group.getOne)
 router.post("/group/join", requireAuth, Group.joinGroup);
 router.post("/group", requireAuth, Group.create);
