@@ -143,7 +143,7 @@ exports.getOne = async (req, res, next) => {
 
   try {
     const activity = await db.$queryRaw`
-      SELECT "Activity".id FROM "Activity"
+      SELECT * FROM "Activity"
         LEFT JOIN "Group"
           ON "Group".id = "Activity"."groupId"
         LEFT JOIN "UserGroup"
