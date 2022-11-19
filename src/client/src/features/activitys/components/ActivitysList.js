@@ -19,12 +19,14 @@ export const ActivitysList = () => {
     <div>
       {data.allActivities.map((activity) => {
         return (
-          <div key={activity.activity_id} className="border border-black p-2 my-2 ">
-            <p>Name: {activity.name}</p>
-            <p>Group: {activity.group_name}</p>
-            <p>Status: {activity.status}</p>
-            <p>Created By: {activity.username}</p>
-          </div>
+          <a href={`/activity/${activity.activity_id}`} key={activity.activity_id} >
+            <div className="border border-black p-2 my-2 ">
+              <p>Name: {activity.name}</p>
+              <p>Group: {activity.group_name}</p>
+              <p>Status: {activity.status}</p>
+              <p>Created By: {activity.username}</p>
+            </div>
+          </a>
         )
       })}
     </div>
