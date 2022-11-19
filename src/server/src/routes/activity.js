@@ -6,7 +6,7 @@ require("../services/passport");
 const requireAuth = passport.authenticate("jwt", { session: false });
 const Activity = require("../controllers/activity");
 
-router.get("/activity", requireAuth, Activity.getAll);
+router.get("/activitys", requireAuth, Activity.getAll);
 router.get("/activity/:id", requireAuth, Activity.getOne);
 router.post("/activity", requireAuth, Activity.create);
 router.delete("/activity/:id", requireAuth, Activity.delete);
