@@ -117,7 +117,7 @@ exports.getAll = async (req, res, next) => {
 
   try {
     const allActivities = await db.$queryRaw`
-      SELECT "Activity".id AS "activity_id", "Activity"."placeid", "Group"."name" AS "group_name", "User"."username" FROM "Activity"
+      SELECT "Activity".id AS "activity_id", "Activity"."placeid", "Activity"."name", "Activity"."status", "Group"."name" AS "group_name", "User"."username" FROM "Activity"
         LEFT JOIN "Group"
           ON "Group".id = "Activity"."groupId"
         LEFT JOIN "UserGroup"
