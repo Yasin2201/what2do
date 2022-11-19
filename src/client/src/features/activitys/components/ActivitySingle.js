@@ -15,5 +15,17 @@ export const ActivitySingle = () => {
 
   if (!activityQuery.data) return null
 
-  return null
+  const activity = activityQuery.data.data.activity[0]
+
+  return (
+    <div>
+      <a href="/activitys" className="underline">Back</a>
+      <p>
+        group: {activity.name}
+      </p>
+      <p>
+        status: {activity.status}
+      </p>
+    </div>
+  )
 }
