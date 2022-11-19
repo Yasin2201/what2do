@@ -31,7 +31,7 @@ function AllRoutes({user}) {
             </>
           } />
 
-        <Route path="activities" element={
+        <Route path="activitys" element={
             <>
               {!user && <Navigate to="/login" />}
               {user && <Activitys />}
