@@ -14,14 +14,16 @@ export const GroupsList = () => {
   if (!groupsQuery.data) return null;
 
   return (
-      <ul>
+    <ul>
       {
         groupsQuery.data.data.allGroups.map(({group}) => {
           return (
-            <li key={group.id}>{group.name}</li>
+            <li key={group.id}>
+              <a href={`/group/${group.id}`}>{group.name}</a>
+            </li>
           )
         })
       }
-      </ul>
+    </ul>
   )
 }
