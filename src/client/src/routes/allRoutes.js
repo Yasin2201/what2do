@@ -4,6 +4,8 @@ import { Dashboard } from '../features/misc/routes/Dashboard';
 import { Login } from '@/features/auth/routes/Login';
 import { Register } from '@/features/auth/routes/Register';
 import { MainLayout } from '@/components/Layout/MainLayout';
+import { Activitys } from '@/features/activitys/routes/Activitys';
+import { Groups } from '@/features/groups/routes/Groups';
 
 function AllRoutes({user}) {
   return (
@@ -25,6 +27,20 @@ function AllRoutes({user}) {
             <>
               {!user && <Navigate to="/login" />}
               {user && <Dashboard />}
+            </>
+          } />
+
+        <Route path="activities" element={
+            <>
+              {!user && <Navigate to="/login" />}
+              {user && <Activitys />}
+            </>
+          } />
+
+        <Route path="groups" element={
+            <>
+              {!user && <Navigate to="/login" />}
+              {user && <Groups />}
             </>
           } />
       </Route>
