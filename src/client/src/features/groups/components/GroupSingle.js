@@ -20,7 +20,7 @@ export const GroupSingle = () => {
 
   return (
     <div>
-      <DeleteGroup id={usersGroup.groupId} isAdmin={usersGroup.admin}/>
+      <DeleteGroup id={usersGroup.groupId} isAdmin={usersGroup.admin} group={usersGroup.group}/>
       <a href="/groups" className="underline" >Back</a>
       <p>
         title: {usersGroup.group.name}
