@@ -6,7 +6,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="fixed py-5 pl-5 justify-center md:hidden h-20 w-20 z-50">
+      <div className="fixed py-5 pl-5 justify-center md:hidden h-20 w-20 z-40">
         <button onClick={() => {setIsOpen(!isOpen)}}>
           <FaEquals size={45} color={`${isOpen ? "white" : ""}`}/>
         </button>
