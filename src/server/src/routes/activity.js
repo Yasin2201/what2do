@@ -8,7 +8,7 @@ const Activity = require("../controllers/activity");
 
 router.get("/activitys", requireAuth, Activity.getAll);
 router.get("/activity/:id", requireAuth, Activity.getOne);
-router.post("/activity", requireAuth, Activity.create);
+router.post("/activitys", requireAuth, Activity.create);
 router.delete("/activity/:id", requireAuth, Activity.delete);
 router.put("/activity/:id", requireAuth, Activity.update);
 
