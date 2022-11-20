@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom"
 import { useGroup } from "../api/getGroup"
+import { DeleteGroup } from "./DeleteGroup"
 
 export const GroupSingle = () => {
   const { id } = useParams()
-  const groupQuery = useGroup(id) 
+  const groupQuery = useGroup(id)
 
   if (groupQuery.isLoading) {
     return (
@@ -15,16 +16,17 @@ export const GroupSingle = () => {
 
   if (!groupQuery.data) return null;
 
-  const { data } = groupQuery.data
+  const { usersGroup } = groupQuery.data.data
 
   return (
     <div>
+      <DeleteGroup id={usersGroup.groupId} isAdmin={usersGroup.admin}/>
       <a href="/groups" className="underline" >Back</a>
       <p>
-        title: {data.usersGroup.group.name}
+        title: {usersGroup.group.name}
       </p>
       <p>
-        id: {data.usersGroup.groupId}
+        id: {usersGroup.groupId}
       </p>
     </div>
   )
