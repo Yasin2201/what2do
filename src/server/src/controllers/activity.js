@@ -5,6 +5,12 @@ exports.create = async (req, res, next) => {
   const { id } = req.user
   const { name, groupId } = req.body
 
+  if (!name || !groupId) {
+    return res
+      .status(422)
+      .json({ error: "Name and Group must be provided" });
+  }
+
   try {
     const activity = await db.activity.create({
       data: {
