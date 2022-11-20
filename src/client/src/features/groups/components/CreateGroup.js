@@ -15,9 +15,11 @@ export const CreateGroup = () => {
   
   return (
     <>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-5 rounded" type="button" onClick={() => setShowModal(true)}>
-        New Group
-      </button>
+      <div className="flex justify-end">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-5 rounded" type="button" onClick={() => setShowModal(true)}>
+          New Group
+        </button>
+      </div>
       {showModal ? (
         <>
           <Modal title="Create New Group">
