@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FaCreditCard, FaEquals } from "react-icons/fa"
-// import { NavLink } from "react-router-dom";
 import { SideNavigation } from "./SideNavigation";
 
 const Sidebar = () => {
@@ -20,34 +19,6 @@ const Sidebar = () => {
         </div>
         <div className="text-white font-medium m-4 flex flex-col">
           <SideNavigation />
-          {/* <NavLink to="/groups">
-            {({ isActive }) => (
-              <div className={`p-2 m-2 rounded hover:bg-gray-600 ${ isActive ? "bg-gray-900" : undefined }`}>
-                Groups
-              </div>
-            )}
-          </NavLink>
-          <NavLink to="/activitys">
-            {({ isActive }) => (
-              <div className={`p-2 m-2 rounded hover:bg-gray-600 ${ isActive ? "bg-gray-900" : undefined }`}>
-                Activities
-              </div>
-            )}
-          </NavLink>
-          <NavLink to="/profile">
-            {({ isActive }) => (
-              <div className={`p-2 m-2 rounded hover:bg-gray-600 ${ isActive ? "bg-gray-900" : undefined }`}>
-                Profile
-              </div>
-            )}
-          </NavLink>
-          <NavLink to="/dashboard">
-            {({ isActive }) => (
-              <div className={`p-2 m-2 rounded hover:bg-gray-600 ${ isActive ? "bg-gray-900" : undefined }`}>
-                Dashboard
-              </div>
-            )}
-          </NavLink> */}
         </div>
       </div>
     </>
