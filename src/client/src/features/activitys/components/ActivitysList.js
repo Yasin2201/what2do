@@ -21,10 +21,10 @@ export const ActivitysList = () => {
         return (
           <a href={`/activity/${activity.activity_id}`} key={activity.activity_id} >
             <div className="border border-black p-2 my-2 ">
-              <p>Name: {activity.name}</p>
+              <p>Name: {activity.activity_name}</p>
               <p>Group: {activity.group_name}</p>
               <p>Status: {activity.status}</p>
-              <p>Created By: {activity.username}</p>
+              <p>Created By: {activity.createdUser}</p>
             </div>
           </a>
         )
