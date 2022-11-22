@@ -16,11 +16,11 @@ export const ActivitySingle = () => {
 
   if (!activityQuery.data) return null
 
-  const activity = activityQuery.data.data.activity[0]
+  const { activity } = activityQuery.data.data
 
   return (
     <div>
-      <DeleteActivity id={activity.id} isAdmin={activity.createdByUser === activity.user_id} activity={activity}/>
+      <DeleteActivity id={activity.id} isAdmin={activity.isAdmin} activity={activity}/>
       <a href="/activitys" className="underline">Back</a>
       <p>
         group: {activity.name}
