@@ -148,22 +148,31 @@ exports.getOne = async (req, res, next) => {
   const userid = req.user.id
 
   try {
-    const activity = await db.$queryRaw`
-      SELECT "Activity".id, "Activity".name, "Activity"."createdByUser", "Activity".status, "User".id AS "user_id"  FROM "Activity"
-        LEFT JOIN "Group"
-          ON "Group".id = "Activity"."groupId"
-        LEFT JOIN "UserGroup"
-          ON "UserGroup"."groupId" = "Group".id
-        LEFT JOIN "User"
-          ON "User".id = "UserGroup"."userId"
-          WHERE "User".id = ${userid} AND "Activity"."id" = ${id};`
+    const data = await db.activity.findFirst({
+      where: {
+        id
+      },
+      include: {
+        group: {
+          include: {
+            users: true
+          }
+        }
+      }
+    })
 
-    if (activity.length === 0) {
-      res.status(404).json({error: "Activity doesn't exist."})
-    } else {
-      res.json({activity})
+    const isAdmin = data.createdByUser === userid
+
+    const activity = {
+      ...data, 
+      isAdmin
     }
-  
+
+    if (!activity) {
+      res.status(404).json({error: "Activity doesn't exist."})
+    }
+
+    res.json({activity})
   } catch (error) {
     return res.status(500).json({error})
   }
