@@ -152,10 +152,23 @@ exports.getOne = async (req, res, next) => {
       where: {
         id
       },
-      include: {
+      select: {
+        id: true,
+        name: true,
+        status: true,
+        createdByUser: true,
         group: {
-          include: {
-            users: true
+          select: {
+            users: {
+              select: {
+                user: {
+                  select: {
+                    id: true,
+                    username: true,
+                  }
+                }
+              }
+            }
           }
         }
       }
