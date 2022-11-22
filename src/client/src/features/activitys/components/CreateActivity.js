@@ -1,11 +1,13 @@
 import { GroupDropdown } from "@/components/Elements/Dropdown/GroupDropdown";
 import { Modal } from "@/components/Elements/Modal";
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { useCreateActivity } from "../api/createActivity";
 
 export const CreateActivity = () => {
   const [showModal, setShowModal] = useState(false);
   const createActivityMutation = useCreateActivity();
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -14,7 +16,9 @@ export const CreateActivity = () => {
       name: name.value,
       groupId: groupId.value
     }
-    await createActivityMutation.mutateAsync(data)
+    const res = await createActivityMutation.mutateAsync(data)
+    const { activity } = res.data
+    res.status === 200 && navigate(`/activity/${activity.id}`)
     setShowModal(false)
   }
   
