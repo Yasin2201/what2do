@@ -170,21 +170,31 @@ exports.getOne = async (req, res, next) => {
   const userid = req.user.id
 
   try {
-    const usersGroup = await db.userGroup.findFirst({
+    const group = await db.Group.findFirst({
       where: {
-        groupId: id,
-        userId: userid
+        id,
       },
       include: {
-        group: true
+        users: {
+          include: {
+            user: true
+          }
+        }
       }
     });
 
-    if (!usersGroup) {
+    if (!group) {
       return res.status(404).json({error: "Group not found"})
     }
 
-    return res.json({usersGroup})
+    const admin = group.users.some(el => el.userId === userid && el.admin)
+
+    const groupData = {
+      ...group,
+      isAdmin: admin
+    }
+
+    return res.json({groupData})
   } catch (error) {
     return res.status(500).json({error})
   }
