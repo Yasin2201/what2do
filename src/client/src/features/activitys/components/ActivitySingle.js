@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useActivity } from "../api/getActivity"
+import { ActivityUsers } from "./ActivityUsers"
 import { DeleteActivity } from "./DeleteActivity"
 
 export const ActivitySingle = () => {
@@ -28,6 +29,9 @@ export const ActivitySingle = () => {
       <p>
         status: {activity.status}
       </p>
+      <div>
+        <ActivityUsers users={activity.group.users}/>
+      </div>
     </div>
   )
 }
