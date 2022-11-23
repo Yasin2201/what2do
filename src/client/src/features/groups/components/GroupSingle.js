@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { useGroup } from "../api/getGroup"
 import { GroupUsers } from "./GroupUsers"
 import { DeleteGroup } from "./DeleteGroup"
+import { LeaveGroup } from "./LeaveGroup"
 
 export const GroupSingle = () => {
   const { id } = useParams()
@@ -21,7 +22,11 @@ export const GroupSingle = () => {
 
   return (
     <div>
-      <DeleteGroup id={groupData.id} isAdmin={groupData.isAdmin} group={groupData}/>
+      {
+        groupData.isAdmin ?
+        <DeleteGroup id={groupData.id} group={groupData}/> :
+        <LeaveGroup />
+      }
       <a href="/groups" className="underline">Back</a>
       <p>
         title: {groupData.name}
