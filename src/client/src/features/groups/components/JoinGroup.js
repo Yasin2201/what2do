@@ -25,14 +25,14 @@ export const JoinGroup = () => {
       {showModal ? (
         <>
           <Modal title="Join New Group" error={error}>
-            <form onSubmit={handleSubmit} className="flex flex-col items-start justify-evenly border-b border-solid border-slate-200 rounded-t">
-              <div className="p-5">
+            <form onSubmit={handleSubmit}>
+              <div>
                 <label htmlFor="groupId" className="text-gray-700 text-lg font-medium">Join Code</label>
                 <input id="groupId" type="text" required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"/>
               </div>
-              <div className="flex p-5 w-full justify-evenly">
+              <div className="flex w-full justify-evenly py-5">
                 <button
-                    className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-5 rounded"
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-1 px-5 rounded"
                     type="button"
                     onClick={
                       () => { 

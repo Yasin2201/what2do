@@ -23,8 +23,8 @@ export const CreateGroup = () => {
       {showModal ? (
         <>
           <Modal title="Create New Group">
-            <form onSubmit={handleSubmit} className="flex flex-col items-start justify-evenly border-b border-solid border-slate-200 rounded-t">
-              <div className="p-5">
+            <form onSubmit={handleSubmit}>
+              <div>
                 <label htmlFor="name" className="text-gray-700 text-lg font-medium">Group Name</label>
                 <input id="name" type="text" required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"/>
               </div>
