@@ -9,6 +9,7 @@ const Group = require("../controllers/group");
 router.get("/groups", requireAuth, Group.getAll)
 router.get("/group/:id", requireAuth, Group.getOne)
 router.post("/group/join", requireAuth, Group.joinGroup);
+router.delete("/group/leave/:groupId", requireAuth, Group.leaveGroup);
 router.post("/groups", requireAuth, Group.create);
 router.delete("/group/:id", requireAuth, Group.delete);
 // router.put("/group/:id", Group.update);  edit group func
