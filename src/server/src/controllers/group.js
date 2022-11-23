@@ -106,6 +106,12 @@ exports.joinGroup = async (req, res, next) => {
       .json({ error: "Join Code must be provided" });
   }
 
+  const existingGroup = await db.group.findFirst({ where: { id: groupId }})
+
+  if (!existingGroup) {
+    return res.status(404).json({ error: "Group does not exist" });
+  }
+
   const existingUserGroup = await db.userGroup.findFirst({
     where: {
       userId: id,
@@ -114,7 +120,7 @@ exports.joinGroup = async (req, res, next) => {
   });
 
   if (existingUserGroup) {
-    return res.status(422).json({ error: "User is already in this group..." });
+    return res.status(422).json({ error: "You are already in this group" });
   }
 
   try {
