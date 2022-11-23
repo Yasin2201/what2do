@@ -145,6 +145,35 @@ exports.joinGroup = async (req, res, next) => {
   }
 };
 
+exports.leaveGroup = async (req, res, next) => {
+  const { id } = req.user
+  const { groupId } = req.params
+
+  try {
+    const existingUserGroup = await db.userGroup.findFirst({
+       where: { 
+        userId: id,
+        groupId
+      }
+      })
+
+    if (!existingUserGroup) {
+      return res.status(404).json({ error: "Group does not exist" });
+    }
+
+    const userGroup = await db.userGroup.deleteMany({
+      where: {
+        userId: id,
+        groupId
+      }
+    })
+
+    return res.json({userGroup});
+  } catch (error) {
+    return res.status(500).json({error})
+  }
+};
+
 exports.getAll = async (req, res, next) => {
   const { id } = req.user
 
