@@ -4,7 +4,7 @@ import { Dashboard } from '../features/misc/routes/Dashboard';
 import { Login } from '@/features/auth/routes/Login';
 import { Register } from '@/features/auth/routes/Register';
 import { MainLayout } from '@/components/Layout/MainLayout';
-import { Activitys } from '@/features/activitys/routes/Activitys';
+import { VotingActivitys } from '@/features/activitys/routes/VotingActivitys';
 import { Groups } from '@/features/groups/routes/Groups';
 import { Group } from '@/features/groups/routes/Group';
 import { Activity } from '@/features/activitys/routes/Activity';
@@ -32,10 +32,10 @@ function AllRoutes({user}) {
             </>
           } />
 
-        <Route path="activitys" element={
+        <Route path="activitys/voting" element={
             <>
               {!user && <Navigate to="/login" />}
-              {user && <Activitys />}
+              {user && <VotingActivitys />}
             </>
           } />
         
