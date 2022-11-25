@@ -118,24 +118,48 @@ exports.update = async (req, res, next) => {
   }
 };
 
-exports.getVotingActivitys = async (req, res) => {
+exports.getActivtys = async (req, res) => {
   const { id } = req.user
+  const status = req.params.status.toUpperCase()
 
   try {
-    const allVotingActivitys = await db.$queryRaw`
-      SELECT "Activity".id AS "activity_id","Activity"."createdByUser", "Activity"."name" AS "activity_name", "Activity"."status", "Group".id AS "group_id", "Group"."name" AS "group_name", "User"."username" AS "createdUser" FROM "Activity"
-        LEFT JOIN "Group"
-          ON "Group".id = "Activity"."groupId"
-        LEFT JOIN "UserGroup"
-          ON "UserGroup"."groupId" = "Group".id
-        LEFT JOIN "User"
-          ON "User".id = "Activity"."createdByUser"
-          WHERE "UserGroup"."userId" = ${id} AND "Activity"."status" = 'VOTING'`;
+    const allActivitys = await db.activity.findMany({
+      where: {
+        status,
+        group: {
+          is: {
+            users: {
+              some: {
+                userId: id
+              }
+            }
+          }
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        status: true,
+        createdByUser: true,
+        user: {
+          select: {
+            id: true,
+            username: true
+          }
+        },
+        group: {
+          select: {
+            id: true,
+            name: true,
+          },
+        }
+      }
+    })
 
-    if (allVotingActivitys.length === 0) {
+    if (allActivitys.length === 0) {
       res.status(404).json({error: "You have no activities being voted on."})
     }
-    res.json({allVotingActivitys})
+    res.json({allActivitys})
   } catch (error) {
     return res.status(500).json({error})
   }
