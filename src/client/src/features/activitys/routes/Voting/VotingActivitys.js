@@ -1,6 +1,6 @@
 import { ContentLayout } from "@/components/Layout/ContentLayout"
-import { CreateActivity } from "../components/CreateActivity"
-import { VotingActivitysList } from "../components/VotingActivitysList"
+import { CreateActivity } from "../../components/CreateActivity"
+import { VotingActivitysList } from "../../components/Voting/VotingActivitysList"
 
 export const VotingActivitys = () => {
   return (

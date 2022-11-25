@@ -1,9 +1,9 @@
-import { useActivitys } from "../api/getActivitys";
+import { useVotingActivitys } from "../../api/getVotingActivitys";
 
-export const ActivitysList = () => {
-  const activitysQuery = useActivitys()
-
-  if (activitysQuery.isLoading) {
+export const VotingActivitysList = () => {
+  const activitysVotingQuery = useVotingActivitys()
+  
+  if (activitysVotingQuery.isLoading) {
     return (
       <div className="w-full h-48 flex justify-center items-center">
         Loading....
@@ -11,13 +11,13 @@ export const ActivitysList = () => {
     )
   }
 
-  if (!activitysQuery.data) return null;
+  if (!activitysVotingQuery.data) return null;
 
-  const { data } = activitysQuery.data
+  const { allVotingActivitys } = activitysVotingQuery.data.data
 
   return (
     <div>
-      {data.allActivities.map((activity) => {
+      {allVotingActivitys.map((activity) => {
         return (
           <a href={`/activity/${activity.activity_id}`} key={activity.activity_id} >
             <div className="border border-black p-2 my-2 ">

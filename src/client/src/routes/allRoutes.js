@@ -4,7 +4,7 @@ import { Dashboard } from '../features/misc/routes/Dashboard';
 import { Login } from '@/features/auth/routes/Login';
 import { Register } from '@/features/auth/routes/Register';
 import { MainLayout } from '@/components/Layout/MainLayout';
-import { VotingActivitys } from '@/features/activitys/routes/VotingActivitys';
+import { VotingActivitys } from '@/features/activitys/routes/Voting/VotingActivitys';
 import { Groups } from '@/features/groups/routes/Groups';
 import { Group } from '@/features/groups/routes/Group';
 import { Activity } from '@/features/activitys/routes/Activity';
