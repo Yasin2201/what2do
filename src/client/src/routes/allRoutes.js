@@ -4,10 +4,10 @@ import { Dashboard } from '../features/misc/routes/Dashboard';
 import { Login } from '@/features/auth/routes/Login';
 import { Register } from '@/features/auth/routes/Register';
 import { MainLayout } from '@/components/Layout/MainLayout';
-import { VotingActivitys } from '@/features/activitys/routes/Voting/VotingActivitys';
 import { Groups } from '@/features/groups/routes/Groups';
 import { Group } from '@/features/groups/routes/Group';
 import { Activity } from '@/features/activitys/routes/Activity';
+import { Activitys } from '@/features/activitys/routes/Activitys';
 
 function AllRoutes({user}) {
   return (
@@ -32,10 +32,10 @@ function AllRoutes({user}) {
             </>
           } />
 
-        <Route path="activitys/voting" element={
+        <Route path="activitys/:status" element={
             <>
               {!user && <Navigate to="/login" />}
-              {user && <VotingActivitys />}
+              {user && <Activitys />}
             </>
           } />
         
