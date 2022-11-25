@@ -118,11 +118,11 @@ exports.update = async (req, res, next) => {
   }
 };
 
-exports.getAll = async (req, res, next) => {
+exports.getVotingActivitys = async (req, res) => {
   const { id } = req.user
 
   try {
-    const allActivities = await db.$queryRaw`
+    const allVotingActivitys = await db.$queryRaw`
       SELECT "Activity".id AS "activity_id","Activity"."createdByUser", "Activity"."name" AS "activity_name", "Activity"."status", "Group".id AS "group_id", "Group"."name" AS "group_name", "User"."username" AS "createdUser" FROM "Activity"
         LEFT JOIN "Group"
           ON "Group".id = "Activity"."groupId"
@@ -130,18 +130,16 @@ exports.getAll = async (req, res, next) => {
           ON "UserGroup"."groupId" = "Group".id
         LEFT JOIN "User"
           ON "User".id = "Activity"."createdByUser"
-          WHERE "UserGroup"."userId" = ${id};`
+          WHERE "UserGroup"."userId" = ${id} AND "Activity"."status" = 'VOTING'`;
 
-    if (allActivities.length === 0) {
-      res.status(404).json({error: "You have no activities planned."})
-    } else {
-      res.json({allActivities})
+    if (allVotingActivitys.length === 0) {
+      res.status(404).json({error: "You have no activities being voted on."})
     }
-  
+    res.json({allVotingActivitys})
   } catch (error) {
     return res.status(500).json({error})
   }
-};
+}
 
 exports.getOne = async (req, res, next) => {
   const { id } = req.params
