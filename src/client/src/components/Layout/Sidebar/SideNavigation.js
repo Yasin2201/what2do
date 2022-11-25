@@ -1,26 +1,54 @@
 import { NavLink } from "react-router-dom";
 
 export const SideNavigation = () => {
-  const navigation = [
-    { name: 'Groups', to: '/groups' },
-    { name: 'Activities', to: '/activitys' },
-    { name: 'Profile', to: '/profile' },
-    { name: 'Dashboard', to: '/dashboard' },
-  ];
+  const navigation = [{
+    id: 1,
+    title: 'Groups',
+    children: [
+      { name: 'Groups', to: '/groups' }
+    ]
+  },
+  {
+    id: 2,
+    title: 'Activities',
+    children: [
+      { name: 'Voting', to: '/activitys/voting' },
+      { name: 'Active', to: '/activitys/active' },
+      { name: 'Completed', to: '/activitys/completed' },
+    ]
+  },
+  {
+    id: 3,
+    title: 'Dashboard',
+    children: [
+      { name: 'Dashboard', to: '/dashboard' }
+    ]
+  }]
 
   return (
-      navigation.map((item) => {
-        return (
-          <NavLink
-          key={item.name}
-          to={item.to}
-          className={
-            ({isActive}) => (`p-2 m-2 rounded hover:bg-gray-600 ${ isActive ? "bg-gray-900" : undefined }`)
+    navigation.map((item) => {
+      return (
+        <div key={item.id} className="flex flex-col m-2">
+          <span className="text-gray-300 text-sm px-2 pt-2">{item.title}</span>
+          <div className="flex flex-col">
+          {
+            item.children.map((child) => {
+              return (
+                <NavLink 
+                key={child.name} 
+                to={child.to}
+                className={
+                  ({isActive}) => (`p-2 rounded hover:bg-gray-600 ${ isActive ? "bg-gray-900" : undefined }`)
+                }
+                >
+                   {child.name}
+                </NavLink>
+              )
+            })
           }
-          >
-          {item.name}
-        </NavLink>
+          </div>
+        </div>
       )
-      })
-      );
+    })
+  );
 };
