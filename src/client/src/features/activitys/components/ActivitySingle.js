@@ -18,11 +18,12 @@ export const ActivitySingle = () => {
   if (!activityQuery.data) return null
 
   const { activity } = activityQuery.data.data
+  const status = activity.status.toLowerCase()
 
   return (
     <div>
       <DeleteActivity id={activity.id} isAdmin={activity.isAdmin} activity={activity}/>
-      <a href="/activitys" className="underline">Back</a>
+      <a href={`/activitys/${status}`} className="underline">Back</a>
       <p>
         group: {activity.name}
       </p>
