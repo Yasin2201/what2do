@@ -20,8 +20,9 @@ export const ActivitysList = () => {
   return (
     <div>
       {allActivitys.map((activity) => {
+        const status = activity.status.toLowerCase()
         return (
-          <Link to={`/activity/${activity.id}`} key={activity.id}>
+          <Link to={`/activitys/${status}/${activity.id}`} key={activity.id}>
             <div className="border border-black p-2 my-2 ">
               <p>Name: {activity.name}</p>
               <p>Group: {activity.group.name}</p>
