@@ -1,16 +1,12 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+
 import { Profile } from '../features/users/routes/Profile';
-import { Dashboard } from '../features/misc/routes/Dashboard';
-import { Login } from '@/features/auth/routes/Login';
-import { Register } from '@/features/auth/routes/Register';
 import { MainLayout } from '@/components/Layout/MainLayout';
-import { Groups } from '@/features/groups/routes/Groups';
-import { Group } from '@/features/groups/routes/Group';
-import { Activity } from '@/features/activitys/routes/Activity';
-import { Activitys } from '@/features/activitys/routes/Activitys';
-import { ActivityVoting } from '@/features/activitys/routes/ActivityVoting';
-import { ActivityActive } from '@/features/activitys/routes/ActivityActive';
-import { ActivityCompleted } from '@/features/activitys/routes/ActivityCompleted';
+import { Dashboard } from '../features/misc/routes/Dashboard';
+import { Login, Register } from '@/features/auth/routes';
+import { Group, Groups } from '@/features/groups/routes';
+import { Activity, Activitys, ActivityVoting, ActivityActive, ActivityCompleted } from '@/features/activitys/routes';
+
 
 function AllRoutes({user}) {
   return (
