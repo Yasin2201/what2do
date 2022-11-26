@@ -10,6 +10,7 @@ import { Activity } from '@/features/activitys/routes/Activity';
 import { Activitys } from '@/features/activitys/routes/Activitys';
 import { ActivityVoting } from '@/features/activitys/routes/ActivityVoting';
 import { ActivityActive } from '@/features/activitys/routes/ActivityActive';
+import { ActivityCompleted } from '@/features/activitys/routes/ActivityCompleted';
 
 function AllRoutes({user}) {
   return (
@@ -52,6 +53,13 @@ function AllRoutes({user}) {
             <>
               {!user && <Navigate to="/login" />}
               {user && <ActivityActive />}
+            </>
+          } />
+
+        <Route path="activitys/completed/:id" element={
+            <>
+              {!user && <Navigate to="/login" />}
+              {user && <ActivityCompleted />}
             </>
           } />
         
