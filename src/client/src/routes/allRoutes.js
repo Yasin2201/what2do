@@ -8,6 +8,7 @@ import { Groups } from '@/features/groups/routes/Groups';
 import { Group } from '@/features/groups/routes/Group';
 import { Activity } from '@/features/activitys/routes/Activity';
 import { Activitys } from '@/features/activitys/routes/Activitys';
+import { ActivityVoting } from '@/features/activitys/routes/ActivityVoting';
 
 function AllRoutes({user}) {
   return (
@@ -36,6 +37,13 @@ function AllRoutes({user}) {
             <>
               {!user && <Navigate to="/login" />}
               {user && <Activitys />}
+            </>
+          } />
+
+        <Route path="activitys/voting/:id" element={
+            <>
+              {!user && <Navigate to="/login" />}
+              {user && <ActivityVoting />}
             </>
           } />
         
