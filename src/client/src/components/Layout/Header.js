@@ -2,6 +2,7 @@ import { useAuthContext } from "@/hooks/useAuthContext"
 import { useState } from "react"
 import { FaUserCircle } from "react-icons/fa"
 import { useLogout } from "@/hooks/useLogout"
+import { Link } from "react-router-dom"
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -22,13 +23,13 @@ export const Header = () => {
         <div id="dropdown" className={`fixed w-44 right-10 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-800 ${isOpen ? "" : "hidden"}`}>
           <ul className="py-1 text-sm text-gray-800 dark:text-gray-200" aria-labelledby="dropdownDefault">
             <li>
-              <a href="/profile" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+              <Link to="/profile" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</Link>
             </li>
             <li>
-              <a href="/dashboard" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+              <Link to="/dashboard" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</Link>
             </li>
             <li>
-              <a href="/login" onClick={logout} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+              <Link to="/login" onClick={logout} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</Link>
             </li>
           </ul>
         </div>

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { useGroup } from "../api/getGroup"
 import { GroupUsers } from "./GroupUsers"
 import { DeleteGroup } from "./DeleteGroup"
@@ -27,7 +27,7 @@ export const GroupSingle = () => {
         <DeleteGroup id={groupData.id} group={groupData}/> :
         <LeaveGroup />
       }
-      <a href="/groups" className="underline">Back</a>
+      <Link to="/groups" className="underline">Back</Link>
       <p>
         title: {groupData.name}
       </p>

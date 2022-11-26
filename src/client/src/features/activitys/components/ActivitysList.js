@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useActivitys } from "../api/getActivitys";
 
 export const ActivitysList = () => {
@@ -21,14 +21,14 @@ export const ActivitysList = () => {
     <div>
       {allActivitys.map((activity) => {
         return (
-          <a href={`/activity/${activity.id}`} key={activity.id}>
+          <Link to={`/activity/${activity.id}`} key={activity.id}>
             <div className="border border-black p-2 my-2 ">
               <p>Name: {activity.name}</p>
               <p>Group: {activity.group.name}</p>
               <p>Status: {activity.status}</p>
               <p>Created By: {activity.user.username}</p>
             </div>
-          </a>
+          </Link>
         )
       })}
     </div>

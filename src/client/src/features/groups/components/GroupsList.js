@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useGroups } from "../api/getGroups"
 
 export const GroupsList = () => {
@@ -19,7 +20,7 @@ export const GroupsList = () => {
         groupsQuery.data.data.allGroups.map(({group}) => {
           return (
             <li key={group.id}>
-              <a href={`/group/${group.id}`}>{group.name}</a>
+              <Link to={`/group/${group.id}`}>{group.name}</Link>
             </li>
           )
         })

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { useActivity } from "../api/getActivity"
 import { ActivityUsers } from "./ActivityUsers"
 import { DeleteActivity } from "./DeleteActivity"
@@ -23,7 +23,7 @@ export const ActivitySingle = () => {
   return (
     <div>
       <DeleteActivity id={activity.id} isAdmin={activity.isAdmin} activity={activity}/>
-      <a href={`/activitys/${status}`} className="underline">Back</a>
+      <Link to={`/activitys/${status}`} className="underline">Back</Link>
       <p>
         group: {activity.name}
       </p>
