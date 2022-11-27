@@ -4,7 +4,8 @@ import storage from '@/utils/storage';
 
 function authRequestInterceptor(config) {
   const localStorage = storage.getToken();
-  if (localStorage.token) {
+
+  if (localStorage) {
     config.headers.authorization = `${localStorage.token}`;
   }
   config.headers.Accept = 'application/json';
