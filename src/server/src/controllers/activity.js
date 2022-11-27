@@ -118,14 +118,15 @@ exports.update = async (req, res, next) => {
   }
 };
 
-exports.getActivtys = async (req, res) => {
+exports.getActivitys = async (req, res) => {
   const { id } = req.user
-  const status = req.params.status.toUpperCase()
+  const statusA = req.params.status
+  const statusB = statusA.toUpperCase()
 
   try {
     const allActivitys = await db.activity.findMany({
       where: {
-        status,
+        status: statusB,
         group: {
           is: {
             users: {
@@ -158,8 +159,9 @@ exports.getActivtys = async (req, res) => {
 
     if (allActivitys.length === 0) {
       res.status(404).json({error: "You have no activities being voted on."})
+    } else {
+      res.json({allActivitys})
     }
-    res.json({allActivitys})
   } catch (error) {
     return res.status(500).json({error})
   }
