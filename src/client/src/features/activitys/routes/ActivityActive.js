@@ -1,5 +1,5 @@
 import { ContentLayout } from "@/components/Layout/ContentLayout"
-import { Active } from "../components/status/Active"
+import { Active } from "../components/status/active/Active"
 
 export const ActivityActive = () => {
   return (
