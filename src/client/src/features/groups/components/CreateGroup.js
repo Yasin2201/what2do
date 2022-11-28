@@ -30,14 +30,14 @@ export const CreateGroup = () => {
               </div>
               <div className="flex p-5 w-full justify-evenly">
                 <button
-                    className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-5 rounded"
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-1 px-5 rounded"
                     type="button"
                     onClick={() => setShowModal(false)}
                     >
                     Cancel
                 </button>
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-5 rounded" type="submit" disabled={createGroupMutation.isLoading ? true : false}>
-                    Save Group
+                    Create Group
                 </button>
               </div>
             </form>

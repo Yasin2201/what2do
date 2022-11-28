@@ -40,7 +40,7 @@ export const DeleteGroup = ({id, group}) => {
                 >
                 Cancel
             </button>
-            <button className="bg-red-500 hover:bg-red-60 text-white font-semibold py-1 px-5 rounded" type="button" onClick={handleDelete}>
+            <button className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-5 rounded" type="button" onClick={handleDelete}>
                 Delete
             </button>
           </div>
