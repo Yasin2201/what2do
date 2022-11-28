@@ -23,7 +23,7 @@ export const Active = () => {
 
   return (
     <div>
-      <CompleteActivity isAdmin={activity.isAdmin}/>
+      <CompleteActivity id={activity.id} isAdmin={activity.isAdmin}/>
       <DeleteActivity id={activity.id} isAdmin={activity.isAdmin} activity={activity}/>
       <Link to={`/activitys/${status}`} className="underline">Back</Link>
       <p>
