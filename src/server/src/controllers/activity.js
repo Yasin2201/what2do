@@ -214,3 +214,27 @@ exports.getOne = async (req, res, next) => {
     return res.status(500).json({error})
   }
 };
+
+exports.updateStatusCompleted = async (req, res) => {
+  try {
+    const { id } = req.params
+    const userId = req.user.id
+
+    const updatedActivity = await db.activity.updateMany({
+      where: {
+        id,
+        createdByUser: userId
+      },
+      data: {
+        status: "COMPLETED",
+      }
+    })
+
+    if(!updatedActivity) {
+      res.status(404).json({error: "Activity not found"})
+    }
+    res.json({updatedActivity})
+  } catch (error) {
+    res.status(500).json({error})
+  }
+}
