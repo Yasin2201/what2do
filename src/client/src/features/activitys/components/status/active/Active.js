@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom"
 import { useActivity } from "../../../api/getActivity"
 import { ActivityUsers } from "../../ActivityUsers"
 import { DeleteActivity } from "../../DeleteActivity"
+import { CompleteActivity } from "./CompleteActivity"
 
 export const Active = () => {
   const { id } = useParams()
@@ -22,6 +23,7 @@ export const Active = () => {
 
   return (
     <div>
+      <CompleteActivity isAdmin={activity.isAdmin}/>
       <DeleteActivity id={activity.id} isAdmin={activity.isAdmin} activity={activity}/>
       <Link to={`/activitys/${status}`} className="underline">Back</Link>
       <p>
