@@ -15,6 +15,7 @@ export const SideNavigation = () => {
       { name: 'Voting', to: '/activitys/voting' },
       { name: 'Active', to: '/activitys/active' },
       { name: 'Completed', to: '/activitys/completed' },
+      { name: 'New Activity', to: '/activity/create' },
     ]
   },
   {
