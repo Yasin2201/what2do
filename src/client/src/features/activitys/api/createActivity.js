@@ -11,8 +11,8 @@ export const useCreateActivity  = () => {
     onSuccess: () => {
       queryClient.invalidateQueries('activitys');
     },
-    onError: () => {
-      throw Error("Something went wrong")
+    onError: (error) => {
+      return error
     },
     mutationFn: createActivity,
   });
