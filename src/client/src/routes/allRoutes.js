@@ -5,7 +5,7 @@ import { MainLayout } from '@/components/Layout/MainLayout';
 import { Dashboard } from '../features/misc/routes/Dashboard';
 import { Login, Register } from '@/features/auth/routes';
 import { Group, Groups } from '@/features/groups/routes';
-import { Activity, Activitys, ActivityVoting, ActivityActive, ActivityCompleted } from '@/features/activitys/routes';
+import { Activity, Activitys, ActivityVoting, ActivityActive, ActivityCompleted, NewActivity } from '@/features/activitys/routes';
 
 
 function AllRoutes({user}) {
@@ -63,6 +63,13 @@ function AllRoutes({user}) {
             <>
               {!user && <Navigate to="/login" />}
               {user && <Activity />}
+            </>
+          } />
+
+        <Route path="activity/create" element={
+            <>
+              {!user && <Navigate to="/login" />}
+              {user && <NewActivity />}
             </>
           } />
 
