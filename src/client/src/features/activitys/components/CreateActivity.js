@@ -1,59 +1,53 @@
 import { GroupDropdown } from "@/components/Elements/Dropdown/GroupDropdown";
-import { Modal } from "@/components/Elements/Modal";
-import { useState } from "react"
+import { ActivityTypeDropdown } from "@/components/Elements/Dropdown/ActivityTypeDropdown";
 import { useNavigate } from "react-router-dom";
 import { useCreateActivity } from "../api/createActivity";
+import { DistanceDropdown } from "@/components/Elements/Dropdown/DistanceDropdown";
+import { useState } from "react";
 
 export const CreateActivity = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [typeSelected, setTypeSelected] = useState(undefined)
+  const [error, setError] = useState(null)
   const createActivityMutation = useCreateActivity();
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const {name, groupId} = e.target.elements
+    const {activityName, groupId, distanceId} = e.target.elements
     const data = {
-      name: name.value,
-      groupId: groupId.value
+      name: activityName.value,
+      groupId: groupId.value,
+      distance: distanceId.value,
+      typeSelected
     }
-    const res = await createActivityMutation.mutateAsync(data)
-    const { activity } = res.data
-    res.status === 200 && navigate(`/activity/${activity.id}`)
-    setShowModal(false)
+    await createActivityMutation.mutateAsync(data)
+    .then((res) => res.status === 200 ? navigate(`/activity/${res.data.activity.id}`) : null)
+    .catch(e => setError(e.response.data.error))
   }
   
   return (
-    <>
-      <div className="flex justify-end">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-5 rounded" type="button" onClick={() => setShowModal(true)}>
-          New Activity
-        </button>
-      </div>
-      {showModal ? (
-        <>
-          <Modal title="Create New Activity">
-            <form onSubmit={handleSubmit} className="flex flex-col items-start justify-evenly border-b border-solid border-slate-200 rounded-t">
-              <div className="p-5">
-                <label htmlFor="name" className="text-gray-700 text-lg font-medium">Activity Name</label>
-                <input id="name" type="text" required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"/>
-              </div>
-              <GroupDropdown />
-              <div className="flex p-5 w-full justify-evenly">
-                <button
-                    className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-5 rounded"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                    >
-                    Cancel
-                </button>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-5 rounded" type="submit" disabled={createActivityMutation.isLoading ? true : false}>
-                    Save Activity
-                </button>
-              </div>
-            </form>
-          </Modal>
-        </>
-      ) : null}
-    </>
+    <div className="max-w-5xl p-5">
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="activityName" className="font-medium text-md text-gray-700">Name</label>
+          <input type="text" name="activityName" id="activityName" placeholder="New Activity" className="w-full p-1.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"/>
+        </div>
+        <GroupDropdown />
+        <DistanceDropdown />
+        <ActivityTypeDropdown typeSelected={typeSelected} setTypeSelected={setTypeSelected} />
+        <div className="mt-5">
+          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-5 rounded">
+            Submit
+          </button>
+        </div>
+      </form>
+      {
+        error && 
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-5 rounded relative" role="alert">
+          <strong className="font-bold">Error: </strong>
+          <span className="block sm:inline">{error}</span>
+        </div>
+      }
+    </div>
   );
 }
