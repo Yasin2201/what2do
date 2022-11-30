@@ -3,12 +3,12 @@ const { findMode } = require('../utils/activityStatus')
 
 exports.create = async (req, res, next) => {
   const { id } = req.user
-  const { name, groupId } = req.body
+  const { name, groupId, distance, typeSelected } = req.body
 
-  if (!name || !groupId) {
+  if (!name || !groupId || !distance || !typeSelected) {
     return res
       .status(422)
-      .json({ error: "Name and Group must be provided" });
+      .json({ error: "Name, Group, Distance & Type must be provided" });
   }
 
   try {
@@ -16,6 +16,8 @@ exports.create = async (req, res, next) => {
       data: {
         name,
         groupId,
+        distance: parseInt(distance),
+        type: typeSelected,
         createdByUser: id
       }
     });
