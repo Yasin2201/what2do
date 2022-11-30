@@ -34,6 +34,8 @@ model Activity {
   group         Group  @relation(fields: [groupId], references: [id])
   groupId       String
   status        Status @default(VOTING)
+  type          Type   @default(FUN)
+  distance      Int    @default(10)
   votes         Vote[]
   user          User   @relation(fields: [createdByUser], references: [id])
   createdByUser String
@@ -61,4 +63,12 @@ enum Status {
   VOTING
   ACTIVE
   COMPLETED
+}
+
+enum Type {
+  TEST
+  FUN
+  RELAX
+  NIGHT
+  FOOD
 }
